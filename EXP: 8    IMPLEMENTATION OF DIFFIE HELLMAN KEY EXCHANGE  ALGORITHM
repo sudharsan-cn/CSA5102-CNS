@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <math.h>
+long long int modPower(long long int base, long long int exp, long long int mod) {
+    long long int result = 1;
+    base = base % mod;
+    while (exp > 0) {
+        if (exp % 2 == 1)
+            result = (result * base) % mod;
+        exp = exp / 2;
+        base = (base * base) % mod;
+    }
+    return result;
+}
+
+int main() {
+    long long int n, g, x, y, a, b, key1, key2;
+
+    printf("Enter value of n and g: ");
+    scanf("%lld %lld", &n, &g);
+
+    printf("Enter private key x for Person 1: ");
+    scanf("%lld", &x);
+    a = modPower(g, x, n);
+
+    printf("Enter private key y for Person 2: ");
+    scanf("%lld", &y);
+    b = modPower(g, y, n);
+
+    key1 = modPower(b, x, n);
+    key2 = modPower(a, y, n);
+
+    printf("\nPublic key for Person 1 (A): %lld", a);
+    printf("\nPublic key for Person 2 (B): %lld", b);
+    printf("\nSecret key for Person 1: %lld", key1);
+    printf("\nSecret key for Person 2: %lld\n", key2);
+
+    return 0;
+}
