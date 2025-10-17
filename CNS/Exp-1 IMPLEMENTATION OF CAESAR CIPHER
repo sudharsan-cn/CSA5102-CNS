@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main() {
+    char text[100], result[100];
+    int key, i;
+    
+    printf("Enter text: ");
+    scanf("%s", text);
+    printf("Enter key: ");
+    scanf("%d", &key);
+
+    for (i = 0; i < strlen(text); i++) {
+        if (isalpha(text[i])) {
+            char base = isupper(text[i]) ? 'A' : 'a';
+            result[i] = (text[i] - base + key) % 26 + base;
+        } else result[i] = text[i];
+    }
+    result[i] = '\0';
+    printf("Encrypted: %s\n", result);
+
+    for (i = 0; i < strlen(result); i++) {
+        if (isalpha(result[i])) {
+            char base = isupper(result[i]) ? 'A' : 'a';
+            text[i] = (result[i] - base - key + 26) % 26 + base;
+        } else text[i] = result[i];
+    }
+    text[i] = '\0';
+    printf("Decrypted: %s\n", text);
+    return 0;
+}
